@@ -33,7 +33,7 @@ KERNEL_ARCH=riscv
 
 DTB_PATH=`readlink -ev ${ROOT_PATH}/riscv-linux/arch/riscv/boot/dts/`
 
-BUILDROOT_CONF_PATH=`readlink -ev ${ROOT_PATH}/riscv-boom-ref/conf/`
+BUILDROOT_CONF_PATH=`readlink -ev ${ROOT_PATH}/tools/conf/`
 
 YOCTO_PATH=`readlink -ev ${ROOT_PATH}/yocto/`
 YOCTO_POKY_PATH=`readlink -ev ${ROOT_PATH}/yocto/riscv-poky/`
@@ -342,10 +342,10 @@ function yocto_build()
 
     if [ $SDK_BUILD == true ];then
         source oe-init-build-env ${YOCTO_PATH}/build_sdk
-        bitbake -c populate_sdk core-image-riscv tools-testapps
+        bitbake -c populate_sdk core-image-riscv
     else
         source oe-init-build-env ${YOCTO_PATH}/build
-        bitbake core-image-riscv tools-testapps
+        bitbake core-image-riscv
     fi
 
     popd
