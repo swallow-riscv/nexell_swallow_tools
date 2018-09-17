@@ -130,6 +130,7 @@ function do_build()
     if [ ${FIRST_BUILD} == true ];then
         echo -e "\033[45;30m First Build !\033[0m"
         toolchain_build
+        yocto_build
         qemu_build
         bl1_build
         kernel_build
@@ -313,6 +314,7 @@ function check_ramdisk()
             cd ..
 	else
 	    echo -e "\033[42;30m       ERROR ::   rootfs.tar.gz does not exist               \033[0m"
+	    yocto_build
 	fi
 
 	popd
