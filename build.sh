@@ -314,7 +314,6 @@ function check_ramdisk()
             cd ..
 	else
 	    echo -e "\033[42;30m       ERROR ::   rootfs.tar.gz does not exist               \033[0m"
-	    yocto_build
 	fi
 
 	popd
@@ -351,6 +350,13 @@ function yocto_build()
     fi
 
     popd
+
+    if [ ${FIRST_BUILD} == true ];then
+        echo -e "\033[45;30m     Copy yocto rootfs ---->        \033[0m"
+        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-initramfs-riscv64.cpio.gz ${BUILD_PATH}/${RAMDISK_FILE}
+        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.cpio.gz ${BUILD_PATH}/rootfs.cpio.gz
+        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.ext2 ${BUILD_PATH}/rootfs.ext2
+    fi
 }
 
 function move_images()
@@ -379,7 +385,7 @@ function move_images()
         echo -e "\033[45;30m     Copy dtb ---->        \033[0m"
         cp ${DTB_PATH}/swallow-${BOARD_NAME}.dtb ${BUILD_PATH}
     fi
-    if [ $BUILD_YOCTO == true ];then
+    if [ $BUILD_YOCTO == true -o $FIRST_BUILD == false ];then
         echo -e "\033[45;30m     Copy yocto rootfs ---->        \033[0m"
         cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-initramfs-riscv64.cpio.gz ${BUILD_PATH}/${RAMDISK_FILE}
         cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.cpio.gz ${BUILD_PATH}/rootfs.cpio.gz
