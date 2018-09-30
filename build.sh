@@ -418,8 +418,26 @@ function check_board_name()
     fi
 }
 
+
+function gen_and_copy_bbappend()
+{
+    echo -e "\n\033[47;34m ------------------------------------------------------------------ \033[0m"
+    echo -e "\033[47;34m                       .bbappend files generate                     \033[0m"
+    echo -e "\033[47;34m ------------------------------------------------------------------ \033[0m"
+
+    local temp=${PWD}
+
+    cd ${TOOLS_PATH}/bbappend-files
+    ./gen_bbappend.sh ${ROOT_PATH}
+    cp -a ${TOOLS_PATH}/bbappend-files/recipes-* ${YOCTO_PATH}/riscv-poky/meta-nexell/
+
+    cd $temp
+    echo -e "\033[47;34m ------------------------ Generate Done ! ------------------------- \033[0m"
+}
+
 parse_args $@
 check_board_name ${BOARD_NAME}
+gen_and_copy_bbappend
 do_build
 move_images
 convert_images
