@@ -110,7 +110,7 @@
 00000000    // 0x0F8
 00000000    // 0x0FC
 00000e00    // 0x100 /DTB Binary Size /need calculate /Do not change this line!!
-800A1000    // 0x104 /DTB load address
+87FA1000    // 0x104 /DTB load address
 00000000    // 0x108 
 00000000    // 0x10C
 00000000    // 0x110
