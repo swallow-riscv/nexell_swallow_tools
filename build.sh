@@ -346,17 +346,10 @@ function yocto_build()
         bitbake -c populate_sdk core-image-riscv
     else
         source oe-init-build-env ${YOCTO_PATH}/build
-        bitbake core-image-riscv
+        bitbake core-image-riscv core-image-riscv-ramdisk
     fi
 
     popd
-
-    if [ ${FIRST_BUILD} == true ];then
-        echo -e "\033[45;30m     Copy yocto rootfs ---->        \033[0m"
-        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-initramfs-riscv64.cpio.gz ${BUILD_PATH}/${RAMDISK_FILE}
-        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.cpio.gz ${BUILD_PATH}/rootfs.cpio.gz
-        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.ext2 ${BUILD_PATH}/rootfs.ext2
-    fi
 }
 
 function move_images()

@@ -55,9 +55,9 @@ dd if=${BINPATH}/nsih-bbl.bin bs=512 >> ${SDBOOT_BIN}
 dd if=${BINPATH}/bbl.bin >> ${SDBOOT_BIN}
 
 #Convert from ascii to hex
-python2.7 converthex.py ${BINPATH}
+#python2.7 converthex.py ${BINPATH}
 
-mv ${BINPATH}/sdboot.hex ${BINPATH}/sdboot_${BINTYPE}.hex
+#mv ${BINPATH}/sdboot.hex ${BINPATH}/sdboot_${BINTYPE}.hex
 
 # cp sdboot_dos.hex ~/RISC-V/nexell/soc-reference/SOC/board/drone_soc/chip/drone_soc/evt0/design/RISCV/sim/l4_rtl/bootrom_test/compile/build/
 # cp sdboot_gpt.hex ~/RISC-V/nexell/soc-reference/SOC/board/drone_soc/chip/drone_soc/evt0/design/RISCV/sim/l4_rtl/bootrom_test/compile/build/
