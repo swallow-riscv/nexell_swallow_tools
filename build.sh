@@ -274,12 +274,13 @@ function check_ramdisk()
 
 	if [ -d ${BUILD_PATH}/sysroot ];then
 	    echo "Exist sysroot directory"
-	else
-	    mkdir -p ${BUILD_PATH}/sysroot
+	    rm -rf ${BUILD_PATH}/sysroot
 	fi
+	mkdir -p ${BUILD_PATH}/sysroot
+
 	ROOTFS_PATH=`readlink -ev ${BUILD_PATH}/sysroot/`
 	cp ${BUILD_PATH}/${RAMDISK_FILE} ${ROOTFS_PATH}
-	
+
 	pushd ${ROOTFS_PATH}
 	zcat ${RAMDISK_FILE} | cpio -idmv
 	rm ${RAMDISK_FILE}
@@ -328,6 +329,7 @@ function dtb_build()
 
     pushd ${KERNEL_PATH}
 
+    rm -rf arch/riscv/boot/dts/*.dtb
     make ARCH=${KERNEL_ARCH} CROSS_COMPILE=${RISCV}/bin/riscv64-unknown-elf- dtbs -j8
 
     popd
