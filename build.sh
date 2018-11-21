@@ -23,6 +23,8 @@ BUILD_QEMU=false
 BUILD_YOCTO=false
 BUILD_ROOTFS=false
 
+USE_RAMDISK=false
+
 BL1_PATH=`readlink -ev ${ROOT_PATH}/riscv-bl1/`
 
 PK_PATH=`readlink -ev ${ROOT_PATH}/riscv-pk/`
@@ -245,7 +247,9 @@ function kernel_build()
     echo -e "\033[45;30m                         Kernel Build                               \033[0m"
     echo -e "\033[45;30m ------------------------------------------------------------------ \033[0m"
 
-    check_ramdisk
+    if [ $USE_RAMDISK == true ];then
+        check_ramdisk
+    fi
 
     pushd ${KERNEL_PATH}
 
@@ -255,10 +259,14 @@ function kernel_build()
 
     make ARCH=${KERNEL_ARCH} swallow_${BOARD_NAME}_defconfig
 
-    make CONFIG_INITRAMFS_SOURCE="${BUILDROOT_CONF_PATH}/initramfs.txt ${ROOTFS_PATH}" \
-         CONFIG_INITRAMFS_ROOT_UID=1000 \
-         CONFIG_INITRAMFS_ROOT_GID=1000 \
-         ARCH=${KERNEL_ARCH} CROSS_COMPILE=${RISCV}/bin/riscv64-unknown-elf- vmlinux -j8
+    if [ $USE_RAMDISK == true ];then
+	make CONFIG_INITRAMFS_SOURCE="${BUILDROOT_CONF_PATH}/initramfs.txt ${ROOTFS_PATH}" \
+	     CONFIG_INITRAMFS_ROOT_UID=1000 \
+             CONFIG_INITRAMFS_ROOT_GID=1000 \
+	     ARCH=${KERNEL_ARCH} CROSS_COMPILE=${RISCV}/bin/riscv64-unknown-elf- vmlinux -j8
+    else
+	make ARCH=${KERNEL_ARCH} CROSS_COMPILE=${RISCV}/bin/riscv64-unknown-elf- vmlinux -j8
+    fi
 
     popd
 }
@@ -380,11 +388,11 @@ function move_images()
         echo -e "\033[45;30m     Copy dtb ---->        \033[0m"
         cp ${DTB_PATH}/swallow-${BOARD_NAME}.dtb ${BUILD_PATH}
     fi
-    if [ $BUILD_YOCTO == true -o $FIRST_BUILD == false ];then
+    if [ $BUILD_YOCTO == true ];then
         echo -e "\033[45;30m     Copy yocto rootfs ---->        \033[0m"
         cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-initramfs-riscv64.cpio.gz ${BUILD_PATH}/${RAMDISK_FILE}
-        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.cpio.gz ${BUILD_PATH}/rootfs.cpio.gz
-        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.ext2 ${BUILD_PATH}/rootfs.ext2
+        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.tar.bz2 ${BUILD_PATH}/rootfs.tar.bz2
+        cp ${YOCTO_PATH}/build/tmp/deploy/images/riscv64/core-image-riscv-riscv64.ext4 ${BUILD_PATH}/rootfs.ext4
     fi
 }
 
