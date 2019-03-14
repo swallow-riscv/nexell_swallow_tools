@@ -11,6 +11,7 @@ INDEX_PATCH=2
 
 R_NX_LIBS='/recipes-nexell-libs/nx-libs'
 R_TESTSUITE='/recipes-application/testsuite'
+R_SIMPLE_ENC_TEST='/recipes-application/simple-enc-test'
 
 TEMPLATE1=[
     "### Nexell - For Yocto build with using local source, Below lines are auto generated codes",
@@ -47,6 +48,7 @@ HASH_RECIPENAME_PATH = {
     'nx-v4l2_%.bbappend':               ['ON',['/library/nx-v4l2',R_NX_LIBS,'/nx-v4l2'],[]],
 
     'testsuite_%.bbappend' :            ['ON',['/apps/testsuite',R_TESTSUITE,'/testsuite'],[]],
+    'simple-enc-test_%.bbappend' :      ['ON',['/apps/simple-enc-test',R_SIMPLE_ENC_TEST,'/simple-enc-test'],[]],
 }
 
 def gen_bbappend_paths(curWorkingPath) :
