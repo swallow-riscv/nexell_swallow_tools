@@ -46,6 +46,7 @@ HASH_RECIPENAME_PATH = {
     'nx-allocator_%.bbappend':          ['ON',['/library/nx-allocator',R_NX_LIBS,'/nx-allocator'],[]],
     'nx-scaler_%.bbappend':             ['ON',['/library/nx-scaler',R_NX_LIBS,'/nx-scaler'],[]],
     'nx-v4l2_%.bbappend':               ['ON',['/library/nx-v4l2',R_NX_LIBS,'/nx-v4l2'],[]],
+    'nx-video-api_%.bbappend':          ['ON',['/library/nx-video-api',R_NX_LIBS,'/nx-video-api'],[]],
 
     'testsuite_%.bbappend' :            ['ON',['/apps/testsuite',R_TESTSUITE,'/testsuite'],[]],
     'simple-enc-test_%.bbappend' :      ['ON',['/apps/simple-enc-test',R_SIMPLE_ENC_TEST,'/simple-enc-test'],[]],
