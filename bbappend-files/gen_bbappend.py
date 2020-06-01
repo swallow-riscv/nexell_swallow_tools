@@ -50,6 +50,7 @@ HASH_RECIPENAME_PATH = {
 
     'testsuite_%.bbappend' :            ['ON',['/apps/testsuite',R_TESTSUITE,'/testsuite'],[]],
     'simple-enc-test_%.bbappend' :      ['ON',['/apps/simple-enc-test',R_SIMPLE_ENC_TEST,'/simple-enc-test'],[]],
+    'nx-camera-enc_%.bbappend' :        ['ON',['/apps/nx-camera-enct',R_SIMPLE_ENC_TEST,'/nx-camera-enc'],[]],
 }
 
 def gen_bbappend_paths(curWorkingPath) :
