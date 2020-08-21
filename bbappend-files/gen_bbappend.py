@@ -13,6 +13,7 @@ R_NX_LIBS='/recipes-nexell-libs/nx-libs'
 R_TESTSUITE='/recipes-application/testsuite'
 R_SIMPLE_ENC_TEST='/recipes-application/simple-enc-test'
 R_NX_CAMERA_ENC='/recipes-application/nx-camera-enc'
+R_NX_ENC_FILTER='/recipes-application/nx-enc-filter'
 
 TEMPLATE1=[
     "### Nexell - For Yocto build with using local source, Below lines are auto generated codes",
@@ -52,6 +53,7 @@ HASH_RECIPENAME_PATH = {
     'testsuite_%.bbappend' :            ['ON',['/apps/testsuite',R_TESTSUITE,'/testsuite'],[]],
     'simple-enc-test_%.bbappend' :      ['ON',['/apps/simple-enc-test',R_SIMPLE_ENC_TEST,'/simple-enc-test'],[]],
     'nx-camera-enc_%.bbappend' :        ['ON',['/apps/nx-camera-enc',R_NX_CAMERA_ENC,'/nx-camera-enc'],[]],
+    'nx-enc-filter_%.bbappend' :        ['ON',['/apps/nx-enc-filter',R_NX_ENC_FILTER,'/nx-enc-filter'],[]],
 }
 
 def gen_bbappend_paths(curWorkingPath) :
